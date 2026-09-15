@@ -1,0 +1,177 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/lib/supabaseClient";
+import { Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+export default function AuthCallback() {
+  const { refreshUser } = useAuth();
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    async function handleCallback() {
+      try {
+        console.log("[AUTH CALLBACK] Processing callback parameters...");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+
+        const swiggyCode = urlParams.get("code");
+        const swiggyState = urlParams.get("state");
+        const swiggyError = urlParams.get("error") || hashParams.get("error");
+
+        if (swiggyError) {
+          console.warn("[AUTH CALLBACK] Swiggy OAuth error reported:", swiggyError);
+          toast({
+            title: "Swiggy Authorization Notice",
+            description: `Swiggy OAuth error: ${swiggyError}`,
+            variant: "destructive",
+          });
+        }
+
+        // Handle Swiggy OAuth PKCE Code Exchange via backend
+        if (swiggyCode && swiggyState) {
+          console.log("[AUTH CALLBACK] Exchanging Swiggy PKCE authorization code via backend...");
+          try {
+            const res = await fetch("/api/swiggy/auth/callback", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ code: swiggyCode, state: swiggyState }),
+            });
+
+            if (res.ok) {
+              toast({
+                title: "Swiggy Connected! ⚡",
+                description: "Your Swiggy account has been linked successfully.",
+              });
+            } else {
+              const errData = await res.json().catch(() => ({}));
+              console.error("[AUTH CALLBACK] Backend token exchange error:", errData);
+              toast({
+                title: "Swiggy Connection Failed",
+                description: errData.details || errData.error || "Failed to exchange Swiggy token",
+                variant: "destructive",
+              });
+            }
+          } catch (mcpErr: any) {
+            console.error("[AUTH CALLBACK] Failed to call Swiggy callback API:", mcpErr);
+          }
+        }
+
+        const recoveryPromise = (async () => {
+          // Get Supabase session. GoTrue client automatically exchanges the code/hash for a session.
+          const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+          if (sessionErr) {
+            console.warn("[AUTH CALLBACK] Error getting session initially:", sessionErr.message);
+          }
+
+          let activeSession = session;
+          if (!activeSession) {
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            const { data: { session: retrySession }, error: retryErr } = await supabase.auth.getSession();
+            if (retryErr) {
+              console.warn("[AUTH CALLBACK] Error getting session on retry:", retryErr.message);
+            }
+            activeSession = retrySession;
+          }
+
+          if (!activeSession) {
+            if (swiggyCode && swiggyState) {
+              return { activeSession: null, profile: null };
+            }
+            throw new Error("No active session found.");
+          }
+
+          console.log("[AUTH CALLBACK] Session resolved, refreshing user context...");
+          await refreshUser();
+
+          const { data: profile, error: profileErr } = await supabase
+            .from("user_profiles")
+            .select("onboarding_completed")
+            .eq("id", activeSession.user.id)
+            .maybeSingle();
+
+          if (profileErr) {
+            console.warn("[AUTH CALLBACK] Error querying profile (non-critical):", profileErr.message);
+          }
+
+          return { activeSession, profile };
+        })();
+
+        const timeoutPromise = new Promise<{ activeSession: any; profile: any }>((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 5000)
+        );
+
+        const { profile, activeSession } = await Promise.race([recoveryPromise, timeoutPromise]);
+
+        if (!active) return;
+
+        console.log("[AUTH CALLBACK] Session restored successfully, redirecting...");
+        toast({
+          title: "Authentication Verified! 🎉",
+          description: "Your session has been restored successfully.",
+        });
+
+        const returnTo = localStorage.getItem("swiggy_auth_return_to");
+        if (returnTo) {
+          localStorage.removeItem("swiggy_auth_return_to");
+          setLocation(returnTo);
+          return;
+        }
+
+        const onboarded = profile?.onboarding_completed ?? (activeSession ? false : true);
+        setLocation(onboarded ? "/dashboard" : "/onboarding");
+      } catch (err: any) {
+        console.error("[AUTH CALLBACK] Callback recovery failed:", err);
+        if (!active) return;
+
+        setError(err.message || "Session recovery delayed");
+        toast({
+          title: "Callback Restore Delayed",
+          description: "We are redirecting you to check your verification state manually.",
+          variant: "destructive",
+        });
+
+        setLocation("/verify-email?recovery=true");
+      }
+    }
+
+    handleCallback();
+
+    return () => {
+      active = false;
+    };
+  }, [refreshUser, setLocation, toast]);
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-primary/10 to-background px-4">
+      <div className="max-w-md w-full text-center space-y-6 bg-card/85 backdrop-blur-md border border-border/80 p-8 rounded-2xl shadow-xl animate-fade-in">
+        {error ? (
+          <div className="space-y-4">
+            <div className="mx-auto bg-destructive/10 w-16 h-16 rounded-full flex items-center justify-center text-destructive mb-3 shadow-inner">
+              <span className="text-2xl font-bold">!</span>
+            </div>
+            <h2 className="text-2xl font-bold text-foreground">Verification Error</h2>
+            <p className="text-sm text-muted-foreground">{error}</p>
+            <p className="text-xs text-muted-foreground/80">Redirecting you to the sign in page...</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="mx-auto bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center text-primary mb-3 shadow-inner">
+              <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground">Verifying Your Session</h2>
+            <p className="text-sm text-muted-foreground">
+              Please wait while we secure your account and restore your session...
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
