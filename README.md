@@ -4,151 +4,233 @@
 
 ### AI-Powered Personalized Wellness & Nutrition Platform
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge\&logo=vite\&logoColor=white)](https://vitejs.dev/)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-3ECF8E?style=for-the-badge\&logo=supabase\&logoColor=white)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)](https://tailwindcss.com/)
 
-**A production-grade, multi-user AI wellness application — built for portfolio showcase, product demos, and real-world deployment.**
-
-[Features](#-features) · [Architecture](#-architecture) · [Setup](#-getting-started) · [Database Schema](#-database-schema) · [Screenshots](#-screenshots)
-
----
+**A production-grade, multi-user AI wellness application built for portfolio showcases, product demos, and real-world deployment.**
 
 </div>
 
-## ✨ Features
+---
 
-### 🤖 AI Co-Pilot (Gemini 2.0 Flash)
-- **Streaming AI chat** — real-time conversational meal planning powered by Google Gemini
-- **Structured JSON responses** — AI outputs rich meal cards with calories, protein, health scores
-- **Grocery list generation** — AI builds personalized shopping lists from your wellness goals
-- **Contextual recommendations** — every suggestion adapts to your dietary profile and allergies
+## 📌 Table of Contents
 
-### 🍽️ Intelligent Dashboard
-- **Personalized meal feed** — Swiggy-style card UI with heart-save and cart-add interactions
-- **Wellness score & streak tracker** — Apple Health-inspired progress rings
-- **Calorie & macro dashboard** — daily intake tracking with visual progress bars
-- **AI wellness insights** — contextual tips based on your onboarding profile
+* [✨ Features](#-features)
+* [🏗️ Architecture](#️-architecture)
+* [🛠️ Tech Stack](#️-tech-stack)
+* [🚀 Getting Started](#-getting-started)
 
-### 🛒 Full Cart & Checkout
-- **Persistent cart** — localStorage primary + Supabase background sync
-- **Nutrition summary** — real-time macros (calories, protein, carbs, fat) across cart items
-- **Mock Swiggy delivery flow** — order confirmation, delivery tracker animation, Swiggy partner branding
-- **Address selection** — multi-address checkout UI
-
-### 👤 Multi-User Auth & Onboarding
-- **Supabase Auth** — email/password signup, login, logout with persistent sessions
-- **7-step onboarding wizard** — goals, dietary preferences, allergies, lifestyle metrics, budget
-- **Auto profile creation** — new users get a DB profile row on first login
-- **localStorage-first persistence** — instant UI, non-blocking background DB sync
-
-### 🥦 Grocery Planner
-- **AI-generated grocery plans** — personalized weekly shopping lists
-- **Category grouping** — Vegetables, Proteins, Grains, etc.
-- **Order via Instamart** — mock Swiggy Instamart checkout integration
-
-### 🔍 Discover Page
-- **Browse healthy meals** — filterable by cuisine, dietary tags, calorie range
-- **Save to wishlist** — per-user saved meals persisted in Supabase
-- **Quick add to cart** — one-click ordering with nutrition preview
+  * [Prerequisites](#prerequisites)
+  * [Clone the Repository](#1-clone-the-repository)
+  * [Install Dependencies](#2-install-dependencies)
+  * [Configure Environment Variables](#3-configure-environment-variables)
+  * [Set Up the Database](#4-set-up-the-supabase-database)
+  * [Start the Development Servers](#5-start-the-development-servers)
+* [🗄️ Database Schema](#️-database-schema)
+* [🔒 Security](#-security)
+* [📱 UI & Experience](#-ui--experience)
+* [🤝 Contributing](#-contributing)
+* [📄 License](#-license)
 
 ---
 
-## 🏗️ Architecture
+# ✨ Features
 
-```
+## 🤖 AI Co-Pilot
+
+Powered by **Google Gemini 2.0 Flash**.
+
+* **Streaming AI chat** — Real-time conversational meal planning.
+* **Structured JSON responses** — Generates meal cards containing calories, protein, and health scores.
+* **Grocery list generation** — Creates personalized shopping lists based on wellness goals.
+* **Contextual recommendations** — Suggestions adapt to the user's dietary profile and allergies.
+
+---
+
+## 🍽️ Intelligent Dashboard
+
+* **Personalized meal feed** — Swiggy-style meal cards with save and cart interactions.
+* **Wellness score & streak tracker** — Progress tracking with Apple Health-inspired rings.
+* **Calorie & macro dashboard** — Tracks calories, protein, carbohydrates, and fat.
+* **AI wellness insights** — Provides contextual tips based on the user's onboarding profile.
+
+---
+
+## 🛒 Cart & Checkout
+
+* **Persistent cart** — Uses localStorage as the primary store with Supabase background synchronization.
+* **Nutrition summary** — Displays calories, protein, carbohydrates, and fat across cart items.
+* **Mock Swiggy delivery flow** — Includes order confirmation and delivery tracker animations.
+* **Address selection** — Supports multiple addresses in the checkout UI.
+
+---
+
+## 👤 Authentication & Onboarding
+
+* **Supabase Auth** — Email/password signup, login, and logout with persistent sessions.
+* **7-step onboarding wizard** — Collects goals, dietary preferences, allergies, lifestyle metrics, and budget.
+* **Automatic profile creation** — Creates a database profile for new users after their first login.
+* **localStorage-first persistence** — Provides instant UI updates with non-blocking background database synchronization.
+
+---
+
+## 🥦 Grocery Planner
+
+* **AI-generated grocery plans** — Creates personalized weekly shopping lists.
+* **Category grouping** — Organizes items into categories such as Vegetables, Proteins, and Grains.
+* **Instamart ordering flow** — Includes a mock Swiggy Instamart checkout integration.
+
+---
+
+## 🔍 Discover
+
+* **Browse healthy meals** — Filter meals by cuisine, dietary tags, and calorie range.
+* **Save meals** — Saves meals to a user-specific wishlist in Supabase.
+* **Quick add to cart** — Adds meals to the cart with a nutrition preview.
+
+---
+
+# 🏗️ Architecture
+
+NutriFlow AI is organized as a **pnpm monorepo** containing the frontend, API server, shared libraries, database schema, and API definitions.
+
+```text
 SWIGGY_G/Asset-Manager/
+│
 ├── artifacts/
-│   ├── nutriflow/          ← React 19 + Vite frontend (main app)
+│   │
+│   ├── nutriflow/                  # React 19 + Vite frontend
+│   │   │
 │   │   ├── src/
-│   │   │   ├── components/ ← UI components (Shadcn/ui + custom)
-│   │   │   │   ├── layout/ ← Navbar, Layout, AuthLayout, ProtectedRoute
-│   │   │   │   ├── cart/   ← CartDrawer, CartItem components
-│   │   │   │   └── ui/     ← Radix UI primitives
-│   │   │   ├── hooks/      ← use-auth.tsx, use-cart.tsx
-│   │   │   ├── lib/        ← supabaseClient.ts, utils.ts
-│   │   │   └── pages/      ← Dashboard, Chat, Discover, Grocery,
-│   │   │                      Onboarding, Login, Profile, Checkout
+│   │   │   ├── components/
+│   │   │   │   ├── layout/         # Navbar, Layout, AuthLayout, ProtectedRoute
+│   │   │   │   ├── cart/           # CartDrawer, CartItem
+│   │   │   │   └── ui/             # Radix UI primitives
+│   │   │   │
+│   │   │   ├── hooks/              # use-auth.tsx, use-cart.tsx
+│   │   │   ├── lib/                # supabaseClient.ts, utils.ts
+│   │   │   └── pages/              # Dashboard, Chat, Discover, Grocery,
+│   │   │                            # Onboarding, Login, Profile, Checkout
+│   │   │
 │   │   └── vite.config.ts
-│   └── api-server/         ← Hono.js API server (Gemini AI proxy)
-│       └── src/routes/     ← /api/chat, /api/meals, /api/grocery
+│   │
+│   └── api-server/                 # Hono.js API server
+│       └── src/routes/
+│           ├── /api/chat
+│           ├── /api/meals
+│           └── /api/grocery
+│
 ├── lib/
-│   ├── api-client-react/   ← React Query hooks for API calls
-│   ├── api-spec/           ← OpenAPI 3.0 specification
-│   ├── api-zod/            ← Zod validation schemas
-│   └── db/                 ← Drizzle ORM schema definitions
-├── pnpm-workspace.yaml     ← Monorepo workspace config
-└── .env.example            ← Environment variable template
+│   ├── api-client-react/           # React Query hooks for API calls
+│   ├── api-spec/                   # OpenAPI 3.0 specification
+│   ├── api-zod/                    # Zod validation schemas
+│   └── db/                         # Drizzle ORM schema definitions
+│
+├── pnpm-workspace.yaml             # Monorepo workspace configuration
+└── .env.example                    # Environment variable template
 ```
-
-### Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | React 19, TypeScript, Vite 7 |
-| **Routing** | Wouter (lightweight SPA router) |
-| **Styling** | Tailwind CSS v4, Framer Motion animations |
-| **UI Components** | Shadcn/ui (Radix UI primitives) |
-| **State/Data** | React Query (TanStack Query v5) |
-| **Auth & Database** | Supabase (PostgreSQL + Row Level Security) |
-| **AI Engine** | Google Gemini 2.0 Flash (streaming) |
-| **API Server** | Hono.js (Node.js) |
-| **Monorepo** | pnpm workspaces |
-| **Forms** | React Hook Form + Zod validation |
 
 ---
 
-## 🚀 Getting Started
+# 🛠️ Tech Stack
 
-### Prerequisites
-- Node.js ≥ 18
-- pnpm ≥ 9 (`npm install -g pnpm`)
-- A [Supabase](https://supabase.com) account (free tier works)
-- A [Google AI Studio](https://aistudio.google.com) API key (free)
+| Layer                         | Technology                               |
+| ----------------------------- | ---------------------------------------- |
+| **Frontend**                  | React 19, TypeScript, Vite 7             |
+| **Routing**                   | Wouter                                   |
+| **Styling**                   | Tailwind CSS v4, Framer Motion           |
+| **UI Components**             | Shadcn/ui, Radix UI                      |
+| **State & Data**              | TanStack React Query v5                  |
+| **Authentication & Database** | Supabase, PostgreSQL, Row Level Security |
+| **AI Engine**                 | Google Gemini 2.0 Flash                  |
+| **API Server**                | Hono.js, Node.js                         |
+| **Monorepo**                  | pnpm Workspaces                          |
+| **Forms & Validation**        | React Hook Form, Zod                     |
 
-### 1. Clone the repository
+---
+
+# 🚀 Getting Started
+
+Follow the steps below to run NutriFlow AI locally.
+
+## Prerequisites
+
+Make sure the following are installed:
+
+* **Node.js ≥ 18**
+* **pnpm ≥ 9**
+
+Install pnpm if required:
+
+```bash
+npm install -g pnpm
+```
+
+You will also need:
+
+* A **Supabase account**
+* A **Google AI Studio API key**
+
+---
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/gnanendramunagapaka/NUTRIFLOW_AI.git
 cd NUTRIFLOW_AI
 ```
 
-### 2. Install dependencies
+---
+
+## 2. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. Configure environment variables
+---
+
+## 3. Configure Environment Variables
+
+Create your local environment file:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edit `.env.local` with your credentials:
+Then update `.env.local` with your credentials:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 GEMINI_API_KEY=your-gemini-api-key
+
 PORT=5173
 BASE_PATH=/
 ```
 
-### 4. Set up the Supabase database
+> **Important:** Never commit your API keys or database credentials to GitHub.
 
-Run the SQL schema in your Supabase SQL editor:
+---
+
+## 4. Set Up the Supabase Database
+
+Open the **Supabase SQL Editor** and run the following schema.
 
 <details>
-<summary>📋 Click to expand full database schema</summary>
+<summary>📋 Click to expand the database schema</summary>
 
 ```sql
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- ============================================
 -- User Profiles
+-- ============================================
+
 CREATE TABLE user_profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   name TEXT NOT NULL DEFAULT '',
@@ -171,7 +253,10 @@ CREATE TABLE user_profiles (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- Cart Items
+-- ============================================
+
 CREATE TABLE cart_items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -188,7 +273,10 @@ CREATE TABLE cart_items (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- AI Conversations
+-- ============================================
+
 CREATE TABLE ai_conversations (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -197,7 +285,10 @@ CREATE TABLE ai_conversations (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- AI Messages
+-- ============================================
+
 CREATE TABLE ai_messages (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   conversation_id UUID NOT NULL REFERENCES ai_conversations(id) ON DELETE CASCADE,
@@ -207,7 +298,10 @@ CREATE TABLE ai_messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- Saved Meals
+-- ============================================
+
 CREATE TABLE saved_meals (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -221,7 +315,10 @@ CREATE TABLE saved_meals (
   UNIQUE (user_id, meal_id)
 );
 
+-- ============================================
 -- Grocery Plans
+-- ============================================
+
 CREATE TABLE grocery_plans (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -229,7 +326,10 @@ CREATE TABLE grocery_plans (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- Grocery Plan Items
+-- ============================================
+
 CREATE TABLE grocery_plan_items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   plan_id UUID NOT NULL REFERENCES grocery_plans(id) ON DELETE CASCADE,
@@ -243,7 +343,10 @@ CREATE TABLE grocery_plan_items (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================
 -- Row Level Security
+-- ============================================
+
 ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cart_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ai_conversations ENABLE ROW LEVEL SECURITY;
@@ -252,94 +355,180 @@ ALTER TABLE saved_meals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grocery_plans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grocery_plan_items ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies (users can only access their own data)
-CREATE POLICY "Users own their profile" ON user_profiles FOR ALL USING (auth.uid() = id);
-CREATE POLICY "Users own their cart" ON cart_items FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own their conversations" ON ai_conversations FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own their messages" ON ai_messages FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own their saved meals" ON saved_meals FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own their grocery plans" ON grocery_plans FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own their grocery items" ON grocery_plan_items FOR ALL USING (auth.uid() = user_id);
+-- ============================================
+-- RLS Policies
+-- ============================================
+
+CREATE POLICY "Users own their profile"
+ON user_profiles FOR ALL
+USING (auth.uid() = id);
+
+CREATE POLICY "Users own their cart"
+ON cart_items FOR ALL
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users own their conversations"
+ON ai_conversations FOR ALL
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users own their messages"
+ON ai_messages FOR ALL
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users own their saved meals"
+ON saved_meals FOR ALL
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users own their grocery plans"
+ON grocery_plans FOR ALL
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users own their grocery items"
+ON grocery_plan_items FOR ALL
+USING (auth.uid() = user_id);
 ```
 
 </details>
 
-### 5. Start the development server
+---
 
-**Terminal 1 — Frontend:**
+## 5. Start the Development Servers
+
+NutriFlow AI uses two development processes:
+
+### Terminal 1 — Frontend
+
 ```bash
 PORT=5173 BASE_PATH=/ npx pnpm --filter @workspace/nutriflow run dev
 ```
 
-**Terminal 2 — API Server (for AI chat):**
+### Terminal 2 — API Server
+
+The API server handles AI chat requests through Gemini.
+
 ```bash
-PORT=8080 GEMINI_API_KEY=your-key NEXT_PUBLIC_SUPABASE_URL=your-url NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key npx pnpm --filter @workspace/api-server run start
+PORT=8080 \
+GEMINI_API_KEY=your-key \
+NEXT_PUBLIC_SUPABASE_URL=your-url \
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key \
+npx pnpm --filter @workspace/api-server run start
 ```
 
-Open **http://localhost:5173** in your browser.
+Once both servers are running, open:
+
+```text
+http://localhost:5173
+```
 
 ---
 
-## 🗄️ Database Schema
+# 🗄️ Database Schema
 
-The app uses **Supabase** (PostgreSQL) with **Row Level Security** — every user can only access their own data.
+NutriFlow AI uses **Supabase PostgreSQL** with **Row Level Security (RLS)**.
 
-| Table | Purpose |
-|-------|---------|
-| `user_profiles` | Stores wellness goals, dietary preferences, body metrics |
-| `cart_items` | Per-user cart with meal/grocery items |
-| `ai_conversations` | Chat history grouped by conversation |
-| `ai_messages` | Individual chat messages (user + AI) |
-| `saved_meals` | Bookmarked meals from Discover page |
-| `grocery_plans` | AI-generated weekly grocery plans |
-| `grocery_plan_items` | Individual items within grocery plans |
+Each table stores a specific part of the application's data:
 
----
-
-## 🔒 Security Notes
-
-- All `.env` files are excluded from git via `.gitignore`
-- Supabase API keys are loaded from environment variables only
-- Row Level Security (RLS) is enabled on all tables — users cannot access other users' data
-- The Supabase anon key is safe to expose to the browser (it's restricted by RLS)
-- Never commit your `GEMINI_API_KEY` or database connection strings
+| Table                | Purpose                                                      |
+| -------------------- | ------------------------------------------------------------ |
+| `user_profiles`      | Stores wellness goals, dietary preferences, and body metrics |
+| `cart_items`         | Stores each user's cart items                                |
+| `ai_conversations`   | Stores AI conversations                                      |
+| `ai_messages`        | Stores individual user and AI messages                       |
+| `saved_meals`        | Stores meals saved from the Discover page                    |
+| `grocery_plans`      | Stores AI-generated weekly grocery plans                     |
+| `grocery_plan_items` | Stores individual grocery items                              |
 
 ---
 
-## 📱 Screenshots
+# 🔒 Security
 
-> Signup → 7-step onboarding → personalized AI dashboard → streaming AI chat → cart → checkout
+The application includes the following security practices:
 
-The app features:
-- 🌙 Dark/light mode with smooth transitions
-- 📱 Fully responsive mobile-first design
-- ✨ Framer Motion animations throughout
-- 🎨 Premium glassmorphism UI with emerald & primary color palette
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -m "feat: add my feature"`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Open a Pull Request
+* `.env` files are excluded from Git using `.gitignore`.
+* Supabase credentials are loaded through environment variables.
+* Row Level Security is enabled on all database tables.
+* Users can only access their own data through the configured RLS policies.
+* The Supabase anon key can be exposed to the browser when properly restricted by RLS.
+* **Never commit `GEMINI_API_KEY` or database connection strings to Git.**
 
 ---
 
-## 📄 License
+# 📱 UI & Experience
 
-MIT License — see [LICENSE](LICENSE) for details.
+The application is designed as a responsive wellness platform with:
+
+* 🌙 Dark and light mode
+* 📱 Mobile-first responsive design
+* ✨ Framer Motion animations
+* 🎨 Premium glassmorphism UI
+* 🥗 Personalized nutrition dashboard
+* 💬 Streaming AI chat
+* 🛒 Cart and checkout experience
+
+### User Flow
+
+```text
+Signup
+   ↓
+7-Step Onboarding
+   ↓
+Personalized Dashboard
+   ↓
+AI Chat / Discover / Grocery Planner
+   ↓
+Add Items to Cart
+   ↓
+Checkout
+   ↓
+Mock Delivery Tracking
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+### 1. Fork the repository
+
+Create your own fork of the project.
+
+### 2. Create a feature branch
+
+```bash
+git checkout -b feature/my-feature
+```
+
+### 3. Commit your changes
+
+```bash
+git commit -m "feat: add my feature"
+```
+
+### 4. Push the branch
+
+```bash
+git push origin feature/my-feature
+```
+
+### 5. Open a Pull Request
+
+Create a Pull Request with a description of your changes.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+See the [`LICENSE`](LICENSE) file for details.
 
 ---
 
 <div align="center">
 
-Built with ❤️ by [Gnanendra Munagapaka](https://github.com/gnanendramunagapaka)
+### Built with ❤️ by [Gnanendra Munagapaka](https://github.com/gnanendramunagapaka)
 
 **Stack:** React 19 · TypeScript · Vite · Supabase · Gemini AI · Tailwind CSS · Framer Motion
 
 </div>
-#   g n a n - r e p o  
- 
